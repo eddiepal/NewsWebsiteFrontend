@@ -6,7 +6,8 @@ import CreateArticle from '@/components/CreateArticle'
 import About from '@/components/About'
 import Contact from '@/components/Contact'
 import SignUp from '@/components/SignUp'
-
+import Login from '@/components/Login'
+import Authors from '@/components/Authors'
 
 Vue.use(Router)
 
@@ -25,9 +26,21 @@ export default new Router({
     },
 
     {
+      path: '/authors',
+      name: 'Authors',
+      component: Authors
+    },
+
+    {
       path: '/signup',
       name: 'SignUp',
       component: SignUp
+    },
+
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     },
 
     {

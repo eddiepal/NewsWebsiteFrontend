@@ -2,11 +2,12 @@
   <div id="app">
     <b-navbar toggleable="md" variant="dark" type="dark">
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-      <img src="./assets/mevnnav.png" class="img-circle" style="padding: 5px">
-      <b-navbar-brand to="/">Donations Web App</b-navbar-brand>
+      <img src="./assets/me.png" class="img-circle" style="padding: 5px">
+      <b-navbar-brand to="/">Eddies News Website</b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
           <b-nav-item to="/#"><i class="fa fa-home" style="padding: 5px"> Home</i></b-nav-item>
+          <b-nav-item to="/authors"><i class="fa fa-list" style="padding: 5px"> Manage Authors</i></b-nav-item>
           <b-nav-item to="/articles"><i class="fa fa-list" style="padding: 5px"> Manage Articles</i></b-nav-item>
           <b-nav-item to="/createarticle"><i class="fa fa-money" style="padding: 5px"> Create Article</i></b-nav-item>
           <b-nav-item to="/map"><i class="fa fa-globe" style="padding: 5px"> Map</i></b-nav-item>
@@ -40,5 +41,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.VueTables__sortable {
+  cursor: pointer;
 }
 </style>

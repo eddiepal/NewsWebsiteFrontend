@@ -17,14 +17,12 @@
       </div>
       <div class="error" v-if="!$v.amount.between">Amount must be between 1 and 1000</div>
 
-
       <div class="form-group" :class="{ 'form-group--error': $v.authorName.$error }">
         <label class="form__label">Personal Message</label>
         <input class="form__input" v-model.trim="$v.authorName.$model"/>
       </div>
       <div class="error" v-if="!$v.authorName.required">Message is Required</div>
       <div class="error" v-if="!$v.authorName.minLength">Message must have at least {{$v.authorName.$params.minLength.min}} letters.</div>
-
 
       <div class="form-group" :class="{ 'form-group--error': $v.email.$error }">
         <label class="form__label">Email</label>
@@ -33,7 +31,6 @@
       <div class="error" v-if="!$v.email.required">Email is Required</div>
       <div class="error" v-if="!$v.email.minLength">Message must have at least {{$v.authorName.$params.minLength.min}} letters.</div>
 
-
       <div class="form-group" :class="{ 'form-group--error': $v.password.$error }">
         <label class="form__label">Password</label>
         <input class="form__input" input type="password" v-model.trim="$v.password.$model"/>
@@ -41,8 +38,9 @@
       <div class="error" v-if="!$v.password.required">Password is Required</div>
       <div class="error" v-if="!$v.password.minLength">Message must have at least {{$v.authorName.$params.minLength.min}} letters.</div>
 
-
-
+      <v-client-table :columns="columns" :data="authors" :options="options">
+        <a slot="uprep" slot-scope="props" class="fa fa-thumbs-up fa-2x" @click="uprep(props.row._id)"></a>
+      </v-client-table>
 
       <p>
         <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">Create Author</button>
@@ -55,95 +53,111 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  import VueForm from 'vueform'
-  import VueSweetalert from 'vue-sweetalert'
-  import Vuelidate from 'vuelidate'
-  import AuthorService from '@/services/articleservice'
-  import { required, minLength, between } from 'vuelidate/lib/validators'
+import VueForm from 'vueform'
+import VueSweetalert from 'vue-sweetalert'
+import Vuelidate from 'vuelidate'
+import AuthorService from '@/services/articleservice'
+import { required, minLength, between } from 'vuelidate/lib/validators'
+import Vue from 'vue'
+// import VueJWT from 'vuejs-jwt'
 
-  Vue.use(VueForm, {
-    inputClasses: {
-      valid: 'form-control-success',
-      invalid: 'form-control-danger'
+Vue.use(VueForm, {
+  inputClasses: {
+    valid: 'form-control-success',
+    invalid: 'form-control-danger'
+  }
+})
+
+Vue.use(Vuelidate)
+Vue.use(VueSweetalert)
+// Vue.use(VueJWT, options)
+
+export default {
+  name: 'CreateAuthor',
+  data () {
+    return {
+      messagetitle: ' New Author ',
+      authorName: '',
+      topic: 'Direct',
+      amount: 0,
+      upvotes: 0,
+      author: {},
+      email: '',
+      password: '',
+      props: ['_id'],
+      submitStatus: null
     }
-  })
+  },
 
-  Vue.use(Vuelidate)
-  Vue.use(VueSweetalert)
-  export default {
-    name: 'CreateAuthor',
-    data () {
-      return {
-        messagetitle: ' New Author ',
-        authorName: '',
-        topic: 'Direct',
-        amount: 0,
-        upvotes: 0,
-        author: {},
-        email: '',
-        password: '',
-        submitStatus: null
+  methods: {
+    submitAuthor: function (author) {
+      AuthorService.postAuthor(author)
+        .then(response => {
+          // JSON responses are automatically parsed.
+          console.log(response)
+        })
+        .catch(error => {
+          this.errors.push(error)
+          console.log(error)
+        })
+    },
+
+    submit () {
+      console.log('submit!')
+      this.$v.$touch()
+      if (this.$v.$invalid) {
+        this.submitStatus = 'ERROR'
+      } else {
+        // do your submit logic here
+        this.submitStatus = 'PENDING'
+        setTimeout(() => {
+          this.submitStatus = 'OK'
+          var author = {
+            authorName: this.authorName,
+            topic: this.topic,
+            amount: this.amount,
+            upvotes: this.upvotes,
+            email: this.email,
+            password: this.password
+          }
+          this.author = author
+          this.submitAuthor(this.author)
+        }, 500)
       }
     },
 
-    methods: {
-      submitAuthor: function (author) {
-        AuthorService.postAuthor(author)
-          .then(response => {
-            // JSON responses are automatically parsed.
-            console.log(response)
-          })
-          .catch(error => {
-            this.errors.push(error)
-            console.log(error)
-          })
-      },
+    // Fetches Donations when the component is created.
+    upRep: function (id) {
+      AuthorService.upRepAuthor(id)
+        .then(response => {
+          console.log(response)
+        })
+        .catch(error => {
+          this.errors.push(error)
+          console.log(error)
+        })
+    }
+  },
 
-      submit () {
-        console.log('submit!')
-        this.$v.$touch()
-        if (this.$v.$invalid) {
-          this.submitStatus = 'ERROR'
-        } else {
-          // do your submit logic here
-          this.submitStatus = 'PENDING'
-          setTimeout(() => {
-            this.submitStatus = 'OK'
-            var author = {
-              authorName: this.authorName,
-              topic: this.topic,
-              amount: this.amount,
-              upvotes: this.upvotes,
-              email: this.email,
-              password: this.password
-            }
-            this.author = author
-            this.submitAuthor(this.author)
-          }, 500)
-        }
-      }
+  validations: {
+    authorName: {
+      required,
+      minLength: minLength(5)
     },
-
-    validations: {
-      authorName: {
-        required,
-        minLength: minLength(5)
-      },
-      email: {
-        required,
-        minLength: minLength(5)
-      },
-      password: {
-        required,
-        minLength: minLength(5)
-      },
-      amount: {
-        required,
-        between: between(1, 1000)
-      }
+    email: {
+      required,
+      minLength: minLength(5)
+    },
+    password: {
+      required,
+      minLength: minLength(5)
+    },
+    amount: {
+      required,
+      between: between(1, 1000)
     }
   }
+}
 </script>
 
 <style scoped>
