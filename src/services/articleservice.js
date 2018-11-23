@@ -9,6 +9,24 @@ export default {
     return Api().get('/authors')
   },
 
+  fetchAuthor (id) {
+    return Api().get(`/donations/${id}`)
+  },
+
+  /*  putAuthor (id, author) {
+    console.log('REQUESTING ' + author._id + ' ' +
+      JSON.stringify(author, null, 5))
+    return Api().put(`/authors/${id}`, author,
+      { headers: {'Content-type': 'application/json'} })
+  }, */
+
+  putAuthor (id, author) {
+    console.log('REQUESTING ' + author._id + ' ' +
+      JSON.stringify(author, null, 5))
+    return Api().put(`/authors/${id}/changeEmail`, author,
+      { headers: {'Content-type': 'application/json'} })
+  },
+
   postArticle (article) {
     return Api().post('/articles', article,
       { headers: {'Content-type': 'application/json'} })
@@ -26,5 +44,9 @@ export default {
 
   upRepAuthor (id) {
     return Api().put(`/authors/${id}/upRep`)
+  },
+
+  deleteAuthor (id) {
+    return Api().delete(`/authors/${id}`)
   }
 }

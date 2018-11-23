@@ -60,12 +60,25 @@ export default {
     submitAuthor: function (author) {
       AuthorService.loginAuthor(author)
         .then(response => {
+          this.message = response.data
+
           // JSON responses are automatically parsed.
           console.log(response)
+          console.log('Login complete.', 'Login is successful! ' + JSON.stringify(response.data, null, 5), 'success')
+          if (response.status === 401) {
+            console.log('ERROR', 'Problem logging in: ' + JSON.stringify(response.data, null, 5))
+          }
         })
         .catch(error => {
-          this.errors.push(error)
+          this.message = error.data
+
+          console.log(error.status)
+
+          // JSON responses are automatically parsed.
           console.log(error)
+
+          /*          this.errors.push(response)
+          console.log(response) */
         })
     },
 
@@ -93,11 +106,11 @@ export default {
   validations: {
     email: {
       required,
-      minLength: minLength(5)
+      minLength: minLength(0)
     },
     password: {
       required,
-      minLength: minLength(5)
+      minLength: minLength(0)
     }
   }
 }
