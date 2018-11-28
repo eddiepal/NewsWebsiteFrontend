@@ -108,7 +108,7 @@ export default {
           this.$emit('author-is-created-updated', this.author)
         }, 500)
       }
-    },
+    }
   },
 
   validations: {
