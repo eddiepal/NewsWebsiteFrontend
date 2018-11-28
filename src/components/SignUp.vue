@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import ArticleService from '@/services/ArticleService'
+import ArticleService from '@/services/articleservice'
 import SignUpForm from '@/components/SignUpForm'
 
 export default {
