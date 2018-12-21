@@ -1,34 +1,40 @@
 <template>
   <div class="hero">
     <h3 class="vue-title"><i class="fa fa-money" style="padding: 3px"></i>{{messagetitle}}</h3>
-    <form @submit.prevent="submit">
-      <div class="form-group">
-        <label class="form-label">Select Payment Type</label>
-        <select id="topic" name="topic" class="form-control" type="text" v-model="topic">
-          <option value="null" selected disabled hidden>Choose Payment Type</option>
-          <option value="Direct">Direct</option>
-          <option value="PayPal">PayPal</option>
-          <option value="Visa">Visa</option>
-        </select>
-      </div>
-      <div class="form-group" :class="{ 'form-group--error': $v.amount.$error }">
-        <label class="form-control-label" name="amount">Amount (Enter a number between 1 and 1000)</label>
-        <input class="form__input" type="number" v-model.trim="amount"/>
-      </div>
-      <div class="error" v-if="!$v.amount.between">Amount must be between 1 and 1000</div>
-      <div class="form-group" :class="{ 'form-group--error': $v.message.$error }">
-        <label class="form__label">Personal Message</label>
-        <input class="form__input" v-model.trim="$v.message.$model"/>
-      </div>
-      <div class="error" v-if="!$v.message.required">Message is Required</div>
-      <div class="error" v-if="!$v.message.minLength">Message must have at least {{$v.message.$params.minLength.min}} letters.</div>
-      <p>
-        <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">Make Article</button>
-      </p>
-      <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your Article!</p>
-      <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Fill in the Form Correctly.</p>
-      <p class="typo__p" v-if="submitStatus === 'PENDING'">Donating...</p>
-    </form>
+    <div class="container mt-3 mt-sm-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <form @submit.prevent="submit">
+          <div class="form-group">
+            <label class="form-label">Select Article Topic</label>
+            <select id="topic" name="topic" class="form-control" type="text" v-model="topic">
+              <option value="null" selected disabled hidden>Choose an article topic</option>
+              <option value="Sport">Sport</option>
+              <option value="Politics">Food</option>
+              <option value="Food">Technology</option>
+            </select>
+          </div>
+          <div class="form-group" :class="{ 'form-group--error': $v.amount.$error }">
+            <label class="form-control-label" name="amount">Enter the number of contibutors</label>
+            <input class="form__input" type="number" v-model.trim="amount"/>
+          </div>
+          <div class="error" v-if="!$v.amount.between">Amount must be between 1 and 1000</div>
+          <div class="form-group" :class="{ 'form-group--error': $v.message.$error }">
+            <label class="form__label">Article Main Section Text</label>
+            <input class="form__input" v-model.trim="$v.message.$model"/>
+          </div>
+          <div class="error" v-if="!$v.message.required">Message is Required</div>
+          <div class="error" v-if="!$v.message.minLength">Message must have at least {{$v.message.$params.minLength.min}} letters.</div>
+          <p>
+            <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">Make Article</button>
+          </p>
+          <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your Article!</p>
+          <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Fill in the Form Correctly.</p>
+          <p class="typo__p" v-if="submitStatus === 'PENDING'">Donating...</p>
+        </form>
+        </div><!-- /col -->
+      </div><!-- /row -->
+    </div><!-- /container -->
   </div>
 </template>
 

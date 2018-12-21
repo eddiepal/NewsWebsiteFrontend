@@ -103,7 +103,7 @@ export default {
             password: this.password
           }
           this.author = author
-          console.log('Submitting in DonationForm : ' +
+          console.log('Submitting in Article Form : ' +
             JSON.stringify(this.author, null, 5))
           this.$emit('author-is-created-updated', this.author)
         }, 500)

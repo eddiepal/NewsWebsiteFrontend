@@ -19,7 +19,7 @@ export default {
   data () {
     return {
       author: {authorName: '', email: '', password: ''},
-      messagetitle: ' Make Donation '
+      messagetitle: ' Create Account '
     }
   },
   components: {

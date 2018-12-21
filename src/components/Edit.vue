@@ -22,7 +22,7 @@ export default {
   data () {
     return {
       author: {},
-      childDataLoaded: false,
+      childDataLoaded: true,
       temp: {},
       messagetitle: ' Update Author '
     }

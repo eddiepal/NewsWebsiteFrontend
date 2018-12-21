@@ -1,28 +1,34 @@
 <template>
-  <div class="hero">
+  <div id="app1" class="hero">
     <h3 class="vue-title"><i class="fa fa-money" style="padding: 3px"></i>{{messagetitle}}</h3>
-    <form @submit.prevent="submit">
-      <div class="form-group" :class="{ 'form-group--error': $v.email.$error }">
-        <label class="form__label">Email</label>
-        <input class="form__input" v-model.trim="$v.email.$model"/>
-      </div>
-      <div class="error" v-if="!$v.email.required">Email is Required</div>
-      <div class="error" v-if="!$v.email.minLength">Message must have at least {{$v.email.$params.minLength.min}} letters.</div>
+    <div class="container mt-3 mt-sm-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+        <form @submit.prevent="submit">
+          <div class="form-group" :class="{ 'form-group--error': $v.email.$error }">
+            <label class="form__label">Email</label>
+            <input class="form__input" v-model.trim="$v.email.$model"/>
+          </div>
+          <div class="error" v-if="!$v.email.required">Email is Required</div>
+          <div class="error" v-if="!$v.email.minLength">Message must have at least {{$v.email.$params.minLength.min}} letters.</div>
 
-      <div class="form-group" :class="{ 'form-group--error': $v.password.$error }">
-        <label class="form__label">Password</label>
-        <input class="form__input" input type="password" v-model.trim="$v.password.$model"/>
-      </div>
-      <div class="error" v-if="!$v.password.required">Password is Required</div>
-      <div class="error" v-if="!$v.password.minLength">Message must have at least {{$v.password.$params.minLength.min}} letters.</div>
+          <div class="form-group" :class="{ 'form-group--error': $v.password.$error }">
+            <label class="form__label">Password</label>
+            <input class="form__input" input type="password" v-model.trim="$v.password.$model"/>
+          </div>
+          <div class="error" v-if="!$v.password.required">Password is Required</div>
+          <div class="error" v-if="!$v.password.minLength">Message must have at least {{$v.password.$params.minLength.min}} letters.</div>
 
-      <p>
-        <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">Login</button>
-      </p>
-      <p class="typo__p" v-if="submitStatus === 'OK'">Login Successful!</p>
-      <p class="typo__p" v-if="submitStatus === 'ERROR'">Details entered are incorrect</p>
-      <p class="typo__p" v-if="submitStatus === 'PENDING'">Logging in...</p>
-    </form>
+          <p>
+            <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">Login</button>
+          </p>
+          <p class="typo__p" v-if="submitStatus === 'OK'">Login Successful!</p>
+          <p class="typo__p" v-if="submitStatus === 'ERROR'">Details entered are incorrect</p>
+          <p class="typo__p" v-if="submitStatus === 'PENDING'">Logging in...</p>
+        </form>
+        </div><!-- /col -->
+      </div><!-- /row -->
+    </div><!-- /container -->
   </div>
 </template>
 

@@ -8,6 +8,8 @@ import Contact from '@/components/Contact'
 import SignUp from '@/components/SignUp'
 import Login from '@/components/Login'
 import Authors from '@/components/Authors'
+import Map from '@/components/Map'
+import Edit from '@/components/Edit'
 
 Vue.use(Router)
 
@@ -23,6 +25,12 @@ export default new Router({
       path: '/articles',
       name: 'Articles',
       component: Articles
+    },
+
+    {
+      path: '/map',
+      name: 'Map',
+      component: Map
     },
 
     {
@@ -59,6 +67,11 @@ export default new Router({
       path: '/contact',
       name: 'Contact',
       component: Contact
+    },
+    {
+      path: '/edit',
+      name: 'Edit',
+      component: Edit
     }
   ]
 })

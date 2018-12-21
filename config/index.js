@@ -2,13 +2,7 @@
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
 
-
-
-
-
 const path = require('path')
-
-
 
 module.exports = {
   dev: {
@@ -20,7 +14,7 @@ module.exports = {
 
     // Various Dev Server settings
     host: process.env.host || 'localhost', // can be overwritten by process.env.HOST
-    port: process.env.port || 4000, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    port: process.env.port || 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
 
     autoOpenBrowser: false,
     errorOverlay: true,
@@ -30,7 +24,7 @@ module.exports = {
     // Use Eslint Loader?
     // If true, your code will be linted during bundling and
     // linting errors and warnings will be shown in the console.
-    useEslint: true,
+    useEslint: false,
     // If true, eslint errors and warnings will also be shown in the error overlay
     // in the browser.
     showEslintErrorsInOverlay: false,

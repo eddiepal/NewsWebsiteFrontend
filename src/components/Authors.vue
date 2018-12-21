@@ -60,7 +60,7 @@ export default {
         })
     },
 
-    // Fetches Donations when the component is created.
+    // Fetches Authors when the component is created.
     upRep: function (id) {
       ArticleService.upRepAuthor(id)
         .then(response => {
@@ -79,7 +79,7 @@ export default {
     deleteAuthor: function (id) {
       this.$swal({
         title: 'Are you sure you want to delete this article?',
-        text: 'You cannot Undo this action!',
+        text: 'You cannot undo this action!',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Delete article',
