@@ -1,4 +1,4 @@
-# donationvue-1.0
+# EddiesNewsWebsite
 
 > A Vue.js project
 
